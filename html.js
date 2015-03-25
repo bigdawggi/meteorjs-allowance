@@ -11,7 +11,9 @@ if (Meteor.isClient) {
   Template.client.events({
     'click .delete': function(event){
       // var delBtn = event.target;
-      Clients.remove(this._id);
+      if(confirm('Are you sure you want to delete this user?')){
+        Clients.remove(this._id);
+      }
     },
     'click .edit': function(event){
       var editBtn = $(event.target),
