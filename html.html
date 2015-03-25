@@ -1,0 +1,51 @@
+<head>
+  <title>Kids Money Money Money</title>
+</head>
+
+<body>
+  <h1>Kids $$</h1>
+
+  {{> clients}}
+</body>
+
+<template name="clients">
+  <table>
+    <thead>
+      <th>Name</th>
+      <th>Money</th>
+      <th>Actions</th>
+    </thead>
+    <tbody>
+      {{#each clients}}
+        {{ >client }}
+      {{/each}}
+    </tbody>
+  </table>
+  {{ >addNew }}
+</template>
+
+<template name="client">
+  <tr>
+    <td class="name-holder">{{name}}</td>
+    <td class="name-edit" style="display:none;">
+      <form class="edit-name">
+        <input type="text" name="newname" value="{{name}}">
+        <input type="text" name="newmoney" value="{{money}}">
+        <input type="submit" style="display: none;">
+      </form>
+    </td>
+    <td>{{money}}</td>
+    <td>
+      <button class="delete">Delete</button>
+      <button class="edit">Edit</button>
+    </td>
+  </tr>
+</template>
+
+<template name="addNew">
+  <form>
+    <label for="name">Name:</label> <input type="text" id="name" name="name" placeholder="Enter a Name">
+    <label for="money">Money:</label> <input type="text" id="money" name="money" placeholder="$$Blinggage">
+    <button type="submit">Submit</button>
+  </form>
+</template>
