@@ -13,7 +13,7 @@
     <thead>
       <th>Name</th>
       <th>Money</th>
-      {{#if currentUser}}
+      {{#if isAdmin}}
       <th>Actions</th>
       {{/if}}
     </thead>
@@ -34,7 +34,7 @@
   <tr id="client-{{_id}}">
     <td class="name-holder hide-when-edit">{{name}}</td>
     <td class="money-holder hide-when-edit">{{money}}</td>
-    {{#if currentUser}}
+    {{#if isAdmin}}
     <td>
       <button class="delete">Delete</button>
       <button class="edit">Edit</button>
@@ -44,7 +44,7 @@
 </template>
 
 <template name="addNew">
-  {{#if currentUser}}
+  {{#if isAdmin}}
   <button id="show-add-new-client-form">Add Another</button>
   <form id="add-new-client" style="display:none;">
     <label for="name">Name:</label> <input type="text" id="name" name="name" placeholder="Enter a Name">
@@ -55,7 +55,7 @@
 </template>
 
 <template name="editClient">
-  {{#if currentUser}}
+  {{#if isAdmin}}
   <form id="edit-client" style="display:none;">
     <input type="hidden" name="clientId" value="">
     <input type="text" name="newname" value="">

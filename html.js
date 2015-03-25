@@ -1,6 +1,9 @@
 var Clients = new Mongo.Collection('clients');
 
 if (Meteor.isClient) {
+  Template.registerHelper('isAdmin', function(){
+    return Meteor.isAdmin();
+  });
 
   Template.clients.helpers({
     clients: function() {
@@ -12,7 +15,7 @@ if (Meteor.isClient) {
     'click .delete': function(event){
       // var delBtn = event.target;
       if(confirm('Are you sure you want to delete this user?')){
-        Clients.remove(this._id);
+        Meteor.call('deleteClient', this._id);
       }
     },
     'click .edit': function(event){
@@ -38,7 +41,7 @@ if (Meteor.isClient) {
           nameInput = form.name;
           moneyInput = form.money
 
-      Clients.insert({
+      Meteor.call('addClient', {
         name: nameInput.value,
         money: moneyInput.value
       });
@@ -59,7 +62,8 @@ if (Meteor.isClient) {
           clientId = form.clientId.value,
           $form = $(form);
 
-      Clients.update(clientId, {
+      Meteor.call('updateClient', {
+        id: clientId,
         name: newName.value,
         money: newMoney.value
       });
@@ -89,3 +93,50 @@ if (Meteor.isServer) {
     // code to run on server at startup
   });
 }
+
+Meteor.isAdmin = function() {
+  var r = false;
+  if ( Meteor.userId() ) {
+    if ( Meteor.user() ) {
+      var username = Meteor.user().username;
+      r = _.contains(['bigdawggi','ann'], username);
+    }
+  }
+  return r;
+}
+Meteor.methods({
+  addClient: function (details) {
+    // Make sure the user is logged in before inserting a task
+    if (! Meteor.isAdmin()) {
+      throw new Meteor.Error("not-authenticated");
+    }
+
+    Clients.insert({
+      name: details.name,
+      money: details.money,
+      createdAt: new Date(),
+      owner: Meteor.userId(),
+      username: Meteor.user().username
+    });
+  },
+  deleteClient: function (clientId) {
+    // Make sure the user is logged in before inserting a task
+    if (! Meteor.isAdmin()) {
+      throw new Meteor.Error("not-authenticated");
+    }
+    Clients.remove(clientId);
+  },
+  updateClient: function( details ) {
+    // Make sure the user is logged in before inserting a task
+    if (! Meteor.isAdmin()) {
+      throw new Meteor.Error("not-authenticated");
+    }
+    Clients.update(details.id, {
+      name: details.name,
+      money: details.money
+    });
+  },
+  setChecked: function (taskId, setChecked) {
+    Tasks.update(taskId, { $set: { checked: setChecked} });
+  }
+});
