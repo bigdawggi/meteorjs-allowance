@@ -21,20 +21,17 @@
       {{/each}}
     </tbody>
   </table>
+
+  <hr>
+
   {{ >addNew }}
+  {{ >editClient }}
 </template>
 
 <template name="client">
-  <tr>
-    <td class="name-holder">{{name}}</td>
-    <td class="name-edit" style="display:none;">
-      <form class="edit-name">
-        <input type="text" name="newname" value="{{name}}">
-        <input type="text" name="newmoney" value="{{money}}">
-        <input type="submit" style="display: none;">
-      </form>
-    </td>
-    <td>{{money}}</td>
+  <tr id="client-{{_id}}">
+    <td class="name-holder hide-when-edit">{{name}}</td>
+    <td class="money-holder hide-when-edit">{{money}}</td>
     <td>
       <button class="delete">Delete</button>
       <button class="edit">Edit</button>
@@ -43,9 +40,19 @@
 </template>
 
 <template name="addNew">
-  <form>
+  <button id="show-add-new-client-form">Add Another</button>
+  <form id="add-new-client" style="display:none;">
     <label for="name">Name:</label> <input type="text" id="name" name="name" placeholder="Enter a Name">
     <label for="money">Money:</label> <input type="text" id="money" name="money" placeholder="$$Blinggage">
+    <button type="submit">Submit</button>
+  </form>
+</template>
+
+<template name="editClient">
+  <form id="edit-client" style="display:none;">
+    <input type="hidden" name="clientId" value="">
+    <input type="text" name="newname" value="">
+    <input type="text" name="newmoney" value="">
     <button type="submit">Submit</button>
   </form>
 </template>
