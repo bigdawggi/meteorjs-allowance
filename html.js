@@ -15,12 +15,14 @@ if (Meteor.isClient) {
     },
     'click .edit': function(event){
       var editBtn = $(event.target),
-          editForm = $('#edit-client');
+          editForm = $('#edit-client'),
+          clientRow = $('#client-' + this._id);
+      clientRow.css('color', 'grey');
+      clientRow.find('button').attr('disabled', 'disabled');
       editForm.find('input[name="clientId"]').val(this._id);
       editForm.find('input[name="newname"]').val(this.name);
       editForm.find('input[name="newmoney"]').val(this.money);
       editForm.show();
-      editBtn.parent().siblings('.hide-when-edit').hide();
     },
   });
 
@@ -54,7 +56,7 @@ if (Meteor.isClient) {
           newMoney = form.newmoney,
           clientId = form.clientId.value,
           $form = $(form);
-      console.log(clientId);
+
       Clients.update(clientId, {
         name: newName.value,
         money: newMoney.value
@@ -63,6 +65,9 @@ if (Meteor.isClient) {
       form.reset();
       var clientRow = $('#client-' + clientId);
       clientRow.find('.hide-when-edit').show();
+      clientRow.css('color', '');
+      clientRow.find('button').removeAttr('disabled');
+
       $form.hide();
       return false;
     }
