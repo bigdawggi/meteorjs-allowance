@@ -9,3 +9,5 @@ autopublish
 accounts-ui
 accounts-password
 twbs:bootstrap-noglyph
+tomi:upload-server
+tomi:upload-jquery
