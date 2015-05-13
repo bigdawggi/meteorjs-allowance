@@ -14,6 +14,11 @@
       {{> clients}}
     </div>
   </div>
+  <div class="row">
+    <div class="col-sm-12">
+      {{> fileUpload}}
+    </div>
+  </div>
 </body>
 
 <template name="clients">
@@ -71,4 +76,8 @@
     <button type="submit">Submit</button>
   </form>
   {{/if}}
+</template>
+
+<template name="fileUpload">
+    {{> upload_bootstrap }}
 </template>
