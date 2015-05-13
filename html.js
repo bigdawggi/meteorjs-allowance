@@ -135,8 +135,5 @@ Meteor.methods({
       name: details.name,
       money: details.money
     });
-  },
-  setChecked: function (taskId, setChecked) {
-    Tasks.update(taskId, { $set: { checked: setChecked} });
   }
 });
