@@ -2,14 +2,22 @@
   <title>Kids Money Money Money</title>
 </head>
 
-<body>
-  <h1>Kids $$</h1>
-  {{> loginButtons}}
-  {{> clients}}
+<body class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Kids Allowance</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-6">
+      {{> loginButtons}}
+      {{> clients}}
+    </div>
+  </div>
 </body>
 
 <template name="clients">
-  <table>
+  <table class="table table-striped">
     <thead>
       <th>Name</th>
       <th>Money</th>
@@ -36,8 +44,8 @@
     <td class="money-holder hide-when-edit">{{money}}</td>
     {{#if isAdmin}}
     <td>
-      <button class="delete">Delete</button>
-      <button class="edit">Edit</button>
+      <button class="btn btn-primary edit">Edit</button>
+      <button class="btn btn-danger delete">Delete</button>
     </td>
     {{/if}}
   </tr>
@@ -45,11 +53,11 @@
 
 <template name="addNew">
   {{#if isAdmin}}
-  <button id="show-add-new-client-form">Add Another</button>
+  <button id="show-add-new-client-form" class="btn btn-primary">Add Another</button>
   <form id="add-new-client" style="display:none;">
     <label for="name">Name:</label> <input type="text" id="name" name="name" placeholder="Enter a Name">
     <label for="money">Money:</label> <input type="text" id="money" name="money" placeholder="$$Blinggage">
-    <button type="submit">Submit</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
   </form>
   {{/if}}
 </template>
